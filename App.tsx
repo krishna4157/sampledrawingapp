@@ -33,7 +33,7 @@ function App(): JSX.Element {
 
   const canvasRef = React.useRef<SketchCanvasRef>(null);
 
-  const [color, setColor] = React.useState('black');
+  const [color, setColor] = React.useState('white');
   const [stroke, setStroke] = React.useState(5);
   const [isEraser, setIsEraser] = React.useState(false);
 
@@ -203,8 +203,8 @@ function App(): JSX.Element {
   };
 
   const saveImage = () => {
-    const file_path = RNFS.DownloadDirectoryPath + '/sampleImage.png';
-    const base64 = canvasRef.current.toBase64(ImageFormat.PNG, 100);
+    const file_path = RNFS.DownloadDirectoryPath + '/sampleImage.jpeg';
+    const base64 = canvasRef.current.toBase64(ImageFormat.JPEG, 100);
     RNFS.writeFile(file_path, base64, 'base64')
       .then(e => {
         alert('Image saved to /Downloads successfully');
@@ -222,8 +222,8 @@ function App(): JSX.Element {
   const exportImage = () => {
     if (canvasRef.current != null) {
 
-      const base64 = canvasRef.current.toBase64(ImageFormat.PNG, 100);
-      const imageUrl = 'data:image/png;base64,' + base64;
+      const base64 = canvasRef.current.toBase64(ImageFormat.JPEG, 100);
+      const imageUrl = 'data:image/jpeg;base64,' + base64;
       const shareOptions = {
         title: 'Share',
         message: 'Sharing this image',
@@ -340,14 +340,15 @@ function App(): JSX.Element {
         <StatusBar barStyle={isDarkMode ? 'light-content' : 'dark-content'} />
         <SketchCanvas
           ref={canvasRef}
-          strokeColor={isEraser ? 'white' : color}
+          strokeColor={isEraser ? 'trnasparent' : color}
           strokeWidth={isEraser ? 45 : showModal || showPenModal ? 0 : stroke}
           containerStyle={{
             width: '100%',
             height: '75%',
             borderWidth: 1,
             elevation: 5,
-            backgroundColor: 'white',
+            backgroundColor: 'black',
+            
           }}
         />
         <View style={{flexDirection: 'row', flexWrap: 'wrap'}}>
